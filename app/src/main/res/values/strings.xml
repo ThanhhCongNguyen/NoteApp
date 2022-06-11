@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NoteApp</string>
+    <string name="title_edittext_hint">Title...</string>
+    <string name="subtitle_edittext_hint">Subtitle</string>
+    <string name="note_edittext_hint">Note</string>
+    <string name="priority_text">Priority</string>
+    <string name="note_inserted_successfully_toast">Note inserted successfully</string>
+    <string name="note_updated_successfully_toast">Note updated successfully</string>
+</resources>
