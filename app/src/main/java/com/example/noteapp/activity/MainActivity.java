@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.example.noteapp.DeleteNote;
+import com.example.noteapp.action.DeleteNote;
 import com.example.noteapp.R;
 import com.example.noteapp.adapter.NoteAdapter;
 import com.example.noteapp.databinding.ActivityMainBinding;

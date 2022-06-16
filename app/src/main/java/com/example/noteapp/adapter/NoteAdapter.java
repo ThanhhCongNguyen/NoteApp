@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.noteapp.DeleteNote;
+import com.example.noteapp.action.DeleteNote;
 import com.example.noteapp.R;
 import com.example.noteapp.activity.InsertNoteActivity;
 import com.example.noteapp.entity.Note;

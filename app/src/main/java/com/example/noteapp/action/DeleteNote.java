@@ -1,4 +1,4 @@
-package com.example.noteapp;
+package com.example.noteapp.action;
 
 import com.example.noteapp.entity.Note;
 
