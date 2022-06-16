@@ -6,4 +6,15 @@
     <string name="priority_text">Priority</string>
     <string name="note_inserted_successfully_toast">Note inserted successfully</string>
     <string name="note_updated_successfully_toast">Note updated successfully</string>
+    <string name="notes_app_text_splash">Notes App</string>
+    <string name="no_filter_text">No Filter</string>
+    <string name="high_to_low_text">High to Low</string>
+    <string name="low_to_high_text">Low to High</string>
+    <string name="title_default">Title</string>
+    <string name="content_default">Content</string>
+    <string name="time_default">Time</string>
+    <string name="life_is_to_fast_don_t_forget_anythings_n_just_note_it_text_view">Life is to fast don\'t forget anythings\n Just note it!</string>
+    <string name="do_you_want_to_delete_n_this_note_text_view">Do you want to delete \n this note?</string>
+    <string name="yes_text">YES</string>
+    <string name="no_text">No</string>
 </resources>

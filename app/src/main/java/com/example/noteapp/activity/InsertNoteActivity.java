@@ -1,99 +1,104 @@
 package com.example.noteapp.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.noteapp.R;
 import com.example.noteapp.databinding.ActivityInsertNoteBinding;
 import com.example.noteapp.entity.Note;
+import com.example.noteapp.utils.Priority;
 import com.example.noteapp.viewmodel.NoteViewModel;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InsertNoteActivity extends AppCompatActivity {
 
-    private ActivityInsertNoteBinding binding;
-    private String gTitle, gSubTitle, gContentNote;
-    private NoteViewModel noteViewModel;
-    private String gPriority = "1";
+    ActivityInsertNoteBinding binding;
+    NoteViewModel noteViewModel;
+    Priority priority = Priority.GREEN;
+    Note note;
+    int iconActive = R.drawable.ic_done;
+    int iconDeactivate = 0;
+    public static final String NOTE_EXTRA = "note";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityInsertNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
-
-        binding.greenPriority.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.greenPriority.setImageResource(R.drawable.ic_done);
-                binding.yellowPriority.setImageResource(0);
-                binding.redPriority.setImageResource(0);
-
-                gPriority = "1";
+        Intent intent = getIntent();
+        if (intent != null) {
+            note = (Note) intent.getSerializableExtra(InsertNoteActivity.NOTE_EXTRA);
+            if (note != null) {
+                binding.titleEdittext.setText(note.getNoteTitle());
+                binding.noteEdittext.setText(note.getNoteContent());
+                binding.greenPriority.setImageResource(note.getNotePriority().equals(Priority.GREEN) ? iconActive : iconDeactivate);
+                binding.yellowPriority.setImageResource(note.getNotePriority().equals(Priority.YELLOW) ? iconActive : iconDeactivate);
+                binding.redPriority.setImageResource(note.getNotePriority().equals(Priority.RED) ? iconActive : iconDeactivate);
+                binding.insertButton.setVisibility(View.GONE);
+                binding.updateButton.setVisibility(View.VISIBLE);
             }
+        }
+
+        binding.greenPriority.setOnClickListener(view -> {
+            binding.greenPriority.setImageResource(iconActive);
+            binding.yellowPriority.setImageResource(0);
+            binding.redPriority.setImageResource(0);
+
+            priority = Priority.GREEN;
         });
 
-        binding.yellowPriority.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.greenPriority.setImageResource(0);
-                binding.yellowPriority.setImageResource(R.drawable.ic_done);
-                binding.redPriority.setImageResource(0);
+        binding.yellowPriority.setOnClickListener(view -> {
+            binding.greenPriority.setImageResource(0);
+            binding.yellowPriority.setImageResource(iconActive);
+            binding.redPriority.setImageResource(0);
 
-                gPriority = "2";
-            }
+            priority = Priority.YELLOW;
         });
 
-        binding.redPriority.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.greenPriority.setImageResource(0);
-                binding.yellowPriority.setImageResource(0);
-                binding.redPriority.setImageResource(R.drawable.ic_done);
+        binding.redPriority.setOnClickListener(view -> {
+            binding.greenPriority.setImageResource(0);
+            binding.yellowPriority.setImageResource(0);
+            binding.redPriority.setImageResource(iconActive);
 
-                gPriority = "3";
-            }
+            priority = Priority.RED;
         });
 
-        binding.insertButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gTitle = binding.titleEdittext.getText().toString().trim();
-                gSubTitle = binding.subtitleEdittext.getText().toString().trim();
-                gContentNote = binding.noteEdittext.getText().toString().trim();
-
-                insertNote(gTitle, gSubTitle, gContentNote);
-            }
+        binding.insertButton.setOnClickListener(view -> {
+            insertNote();
         });
 
-
+        binding.updateButton.setOnClickListener(view -> {
+            updateNote();
+        });
     }
 
-    private void insertNote(String title, String subTitle, String contentNote) {
+    private void updateNote() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         String timeInsert = formatter.format(date);
+        String title = binding.titleEdittext.getText().toString().trim();
+        String noteContent = binding.noteEdittext.getText().toString().trim();
+        Note note = new Note(title, timeInsert, noteContent, priority);
+        noteViewModel.updateNote(note);
+        finish();
+    }
 
-        Note note = new Note();
-        note.noteTitle = title;
-        note.noteSubtitle = subTitle;
-        note.noteDate = timeInsert;
-        note.noteContent = contentNote;
-        note.notePriority = gPriority;
-
+    private void insertNote() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        String timeInsert = formatter.format(date);
+        String title = binding.titleEdittext.getText().toString().trim();
+        String noteContent = binding.noteEdittext.getText().toString().trim();
+        Note note = new Note(title, timeInsert, noteContent, priority);
         noteViewModel.insertNote(note);
-
-        Toast.makeText(InsertNoteActivity.this, R.string.note_inserted_successfully_toast, Toast.LENGTH_LONG).show();
-
         finish();
     }
 }

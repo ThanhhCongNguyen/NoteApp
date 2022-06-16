@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="256dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="@dimen/space_extra"
+        android:background="@drawable/indicator_delete" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_default"
+        android:gravity="center"
+        android:text="@string/do_you_want_to_delete_n_this_note_text_view"
+        android:textColor="@color/red"
+        android:textSize="@dimen/size_of_text_view_extra"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/notDeleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_extra"
+        android:layout_marginTop="@dimen/space_extra"
+        android:layout_marginEnd="@dimen/space_extra"
+        android:background="@drawable/not_delete_button_background"
+        android:text="@string/no_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_of_text_view_extra"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_extra"
+        android:layout_marginTop="@dimen/space_extra"
+        android:layout_marginEnd="@dimen/space_extra"
+        android:layout_marginBottom="@dimen/space_extra"
+        android:background="@drawable/delete_button_background"
+        android:text="@string/yes_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_of_text_view_extra"
+        app:backgroundTint="@null" />
+</LinearLayout>

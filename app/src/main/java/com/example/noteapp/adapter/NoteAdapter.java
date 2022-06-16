@@ -10,19 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.noteapp.DeleteNote;
 import com.example.noteapp.R;
-import com.example.noteapp.activity.UpdateNoteActivity;
+import com.example.noteapp.activity.InsertNoteActivity;
 import com.example.noteapp.entity.Note;
-import com.example.noteapp.utility.Utility;
+import com.example.noteapp.utils.Priority;
 
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
-    
-    private List<Note> noteList;
 
-    public NoteAdapter(List<Note> noteList) {
+    private List<Note> noteList;
+    private DeleteNote deleteNote;
+
+    public NoteAdapter(List<Note> noteList, DeleteNote deleteNote) {
         this.noteList = noteList;
+        this.deleteNote = deleteNote;
     }
 
     @NonNull
@@ -34,26 +37,28 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        Note note = noteList.get(position);
         Context context = holder.itemView.getContext();
-        
-        holder.itemTitle.setText(note.noteTitle);
-        holder.itemSubTitle.setText(note.noteSubtitle);
-        holder.itemTime.setText(note.noteDate);
-        if(note.notePriority.equals("1")){
+        Note note = noteList.get(position);
+        holder.itemTitle.setText(note.getNoteTitle());
+        holder.itemContent.setText(note.getNoteContent());
+        holder.itemTime.setText(note.getNoteDate());
+        if (note.notePriority.equals(Priority.GREEN)) {
             holder.itemPriority.setBackgroundResource(R.drawable.green_circle);
-        }else if(note.notePriority.equals("2")){
+        } else if (note.notePriority.equals(Priority.YELLOW)) {
             holder.itemPriority.setBackgroundResource(R.drawable.yellow_circle);
-        }else {
+        } else {
             holder.itemPriority.setBackgroundResource(R.drawable.red_circle);
         }
+
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(context, UpdateNoteActivity.class);
-            intent.putExtra(Utility.NOTE_TITLE_EXTRA, note.noteTitle);
-            intent.putExtra(Utility.NOTE_SUBTITLE_EXTRA, note.noteSubtitle);
-            intent.putExtra(Utility.NOTE_CONTENT_EXTRA, note.noteContent);
-            intent.putExtra(Utility.NOTE_PRIORITY_EXTRA, note.notePriority);
+            Intent intent = new Intent(context, InsertNoteActivity.class);
+            intent.putExtra(InsertNoteActivity.NOTE_EXTRA, note);
             context.startActivity(intent);
+        });
+
+        holder.itemView.setOnLongClickListener(view -> {
+            deleteNote.deleteNote(note);
+            return true;
         });
     }
 
@@ -67,14 +72,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
-    class NoteViewHolder extends RecyclerView.ViewHolder{
+    class NoteViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView itemTitle, itemSubTitle, itemTime;
+        private TextView itemTitle, itemContent, itemTime;
         private View itemPriority;
+
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             itemTitle = itemView.findViewById(R.id.itemTitle);
-            itemSubTitle = itemView.findViewById(R.id.itemSubTitle);
+            itemContent = itemView.findViewById(R.id.itemContent);
             itemTime = itemView.findViewById(R.id.itemTime);
             itemPriority = itemView.findViewById(R.id.itemPriority);
 

@@ -12,25 +12,28 @@ import java.util.List;
 
 public class NoteRepository {
 
-    public NoteDao noteDao;
-    public LiveData<List<Note>> getAllNotes;
+    private NoteDao noteDao;
+    private LiveData<List<Note>> allNotes;
 
-    public NoteRepository(Application application){
+    public NoteRepository(Application application) {
         NoteDatabase database = NoteDatabase.getDatabaseInstance(application);
         noteDao = database.noteDao();
-        getAllNotes = noteDao.getAllNotes();
+        allNotes = noteDao.getAllNotes();
     }
 
-    public void insertNote(Note note){
-        noteDao.insertNote(note);
+    public LiveData<List<Note>> getAllNotes() {
+        return allNotes;
     }
 
-    public void deleteNote(Note note){
-        noteDao.deleteNote(note);
+    public void insertNote(Note note) {
+        new Thread(() -> noteDao.insertNote(note)).start();
     }
 
-    public void updateNote(Note note){
-        noteDao.updateNote(note);
+    public void deleteNote(int id) {
+        new Thread(() -> noteDao.deleteNote(id)).start();
     }
 
+    public void updateNote(Note note) {
+        new Thread(() -> noteDao.updateNote(note)).start();
+    }
 }

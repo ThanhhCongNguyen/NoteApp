@@ -1,31 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey"
     tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/size_of_image_view_default"
+            android:layout_height="@dimen/size_of_image_view_default"
+            android:layout_marginStart="@dimen/space_extra"
+            android:background="@drawable/circle_background"
+            android:src="@drawable/ic_filter" />
+
+        <TextView
+            android:id="@+id/noFilterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_extra"
+            android:background="@drawable/text_filter_background"
+            android:paddingStart="@dimen/space_extra"
+            android:paddingTop="@dimen/space_small"
+            android:paddingEnd="@dimen/space_extra"
+            android:paddingBottom="@dimen/space_small"
+            android:text="@string/no_filter_text"
+            android:textSize="@dimen/size_of_text_view_small" />
+
+        <TextView
+            android:id="@+id/highToLowText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_default"
+            android:background="@drawable/text_filter_background"
+            android:paddingStart="@dimen/space_default"
+            android:paddingTop="@dimen/space_small"
+            android:paddingEnd="@dimen/space_extra"
+            android:paddingBottom="@dimen/space_small"
+            android:text="@string/high_to_low_text"
+            android:textSize="@dimen/size_of_text_view_small" />
+
+        <TextView
+            android:id="@+id/lowToHighText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_default"
+            android:background="@drawable/text_filter_background"
+            android:paddingStart="@dimen/space_default"
+            android:paddingTop="@dimen/space_small"
+            android:paddingEnd="@dimen/space_default"
+            android:paddingBottom="@dimen/space_small"
+            android:text="@string/low_to_high_text"
+            android:textSize="@dimen/size_of_text_view_small" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/filter" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/goToInsertActButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="@dimen/space_extra"
+        android:layout_marginBottom="@dimen/space_extra"
+        android:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

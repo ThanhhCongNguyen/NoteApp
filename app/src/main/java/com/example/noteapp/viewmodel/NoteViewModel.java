@@ -12,24 +12,28 @@ import java.util.List;
 
 public class NoteViewModel extends AndroidViewModel {
 
-    public NoteRepository noteRepository;
-    public LiveData<List<Note>> getAllNotes;
+    private NoteRepository noteRepository;
+    private LiveData<List<Note>> allNotes;
 
     public NoteViewModel(Application application) {
         super(application);
         noteRepository = new NoteRepository(application);
-        getAllNotes = noteRepository.getAllNotes;
+        allNotes = noteRepository.getAllNotes();
     }
 
-    public void insertNote(Note note){
+    public LiveData<List<Note>> getAllNotes() {
+        return allNotes;
+    }
+
+    public void insertNote(Note note) {
         noteRepository.insertNote(note);
     }
 
-    public void deleteNote(Note note){
-        noteRepository.deleteNote(note);
+    public void deleteNote(int id) {
+        noteRepository.deleteNote(id);
     }
 
-    public void updateNote(Note note){
+    public void updateNote(Note note) {
         noteRepository.updateNote(note);
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activity.SplashScreenActivity">
+
+    <ImageView
+        android:layout_width="@dimen/size_of_image_view_large"
+        android:layout_height="@dimen/size_of_image_view_large"
+        android:background="@drawable/notes" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_default"
+        android:text="@string/notes_app_text_splash"
+        android:textColor="@color/red"
+        android:textSize="@dimen/size_of_text_view_large"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_default"
+        android:gravity="center"
+        android:text="@string/life_is_to_fast_don_t_forget_anythings_n_just_note_it_text_view"
+        android:textColor="@color/red" />
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_extra"
+        android:theme="@style/ProgressBar" />
+</LinearLayout>
